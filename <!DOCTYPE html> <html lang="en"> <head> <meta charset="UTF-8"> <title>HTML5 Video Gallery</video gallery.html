@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cartoon Network Player</title>
 <style>
-/* --- animations and styles (same as before) --- */
+/* --- animations and styles --- */
 @keyframes floatIn {0%{transform:translateY(-50px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
 @keyframes pulseGlow {0%,100%{box-shadow:0 0 10px #ffcc00,0 0 20px #ff6600;}50%{box-shadow:0 0 25px #ff6600,0 0 40px #ffcc00;}}
 @keyframes bounceIn {0%{transform:scale(0.5);opacity:0;}60%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);}}
@@ -15,115 +15,7 @@ header {display:flex;align-items:center;gap:10px;background:#fff;color:#000;widt
 header img {height:50px;border-radius:5px;}
 header h1 {font-size:28px;font-weight:bold;animation:bounceIn 1s ease;}
 .player-container {background:#222;padding:20px;border-radius:20px;width:720px;box-shadow:0 0 25px rgba(255,255,255,0.2);text-align:center;animation:bounceIn 1s ease-out;}
-video {width:100%;border-radius:15px;border:5px solid #fff;box-shadow:0 0 15px #000;animation:floatIn 0.8s ease;}
-.controls {margin-top:10px;animation:floatIn 1.2s ease;}
-button {background:#fff;color:#000;border:none;border-radius:10px;padding:10px 20px;margin:5px;font-size:16px;font-weight:bold;cursor:pointer;transition:transform 0.2s, background 0.2s, box-shadow 0.2s;}
-button:hover {background:#ffcc00;color:#000;transform:scale(1.1);animation:pulseGlow 1s infinite alternate;}
-.playlist {margin-top:20px;display:flex;justify-content:center;flex-wrap:wrap;gap:15px;animation:floatIn 1.5s ease;}
-.thumb {background:#fff;border-radius:10px;overflow:hidden;width:140px;cursor:pointer;transition:transform 0.2s,border-color 0.2s;border:3px solid transparent;position:relative;}
-.thumb:hover {transform:scale(1.1);border-color:#ffcc00;animation:pulseGlow 1s infinite alternate;}
-.thumb img {width:100%;height:80px;object-fit:cover;}
-.thumb p {margin:5px;color:#000;font-weight:bold;}
-footer {margin-top:30px;font-size:14px;color:#aaa;animation:floatIn 2s ease;}
-.bubble {position:absolute;bottom:-100px;background:radial-gradient(circle,#ffcc00,#ff6600);border-radius:50%;opacity:0.7;animation:rise 8s linear infinite;}
-@keyframes rise {0%{transform:translateY(0) scale(0.8);opacity:0.7;}100%{transform:translateY(-120vh) scale(1.2);opacity:0;}}
-#fileInput {display:none;}
-</style>
-</head>
-<body>
-
-<header>
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg" alt="CN Logo">
-<h1>Cartoon Network Player</h1>
-</header>
-
-<div class="player-container">
-<video id="videoPlayer" controls>
-  <source src="adventuretime.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
-
-<div class="controls">
-<button onclick="playVideo()">▶ Play</button>
-<button onclick="pauseVideo()">⏸ Pause</button>
-<button onclick="restartVideo()">⏮ Restart</button>
-<button onclick="uploadVideo()">📂 Upload Video</button>
-<input type="file" id="fileInput" accept="video/*">
-</div>
-
-<div class="playlist" id="playlist">
-<div class="thumb" onclick="changeVideo('adventuretime.mp4')">
-<img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Adventure_Time_-_Title_card.png" alt="Adventure Time">
-<p>Adventure Time</p>
-</div>
-<div class="thumb" onclick="changeVideo('gumball.mp4')">
-<img src="https://upload.wikimedia.org/wikipedia/en/f/fc/The_Amazing_World_of_Gumball_logo.png" alt="Gumball">
-<p>Gumball</p>
-</div>
-<div class="thumb" onclick="changeVideo('teen_titans.mp4')">
-<img src="https://upload.wikimedia.org/wikipedia/en/8/8c/Teen_Titans_Go%21_logo.png" alt="Teen Titans Go">
-<p>Teen Titans Go</p>
-</div>
-<div class="thumb" onclick="changeVideo('ben10.mp4')">
-<img src="https://upload.wikimedia.org/wikipedia/en/f/f0/Ben_10_2016_logo.svg" alt="Ben 10">
-<p>Ben 10</p>
-</div>
-</div>
-</div>
-
-<footer>© 2025 Cartoon Network Fan Player — for personal/local use only</footer>
-
-<script>
-const video=document.getElementById('videoPlayer');
-const fileInput=document.getElementById('fileInput');
-const playlist=document.getElementById('playlist');
-
-function playVideo(){video.play();}
-function pauseVideo(){video.pause();}
-function restartVideo(){video.currentTime=0;video.play();}
-function changeVideo(file){video.src=file;video.play();}
-function uploadVideo(){fileInput.click();}
-
-fileInput.addEventListener('change',function(){
-  const file=this.files[0];
-  if(file){
-    const videoURL=URL.createObjectURL(file);
-    video.src=videoURL;
-    video.play();
-
-    // Create thumbnail from first frame
-    const tempVideo=document.createElement('video');
-    tempVideo.src=videoURL;
-    tempVideo.muted=true;
-    tempVideo.playsInline=true;
-    tempVideo.currentTime=0.1; // small offset to grab frame
-
-    tempVideo.addEventListener('loadeddata',()=>{
-      const canvas=document.createElement('canvas');
-      canvas.width=140;
-      canvas.height=80;
-      const ctx=canvas.getContext('2d');
-      ctx.drawImage(tempVideo,0,0,140,80);
-      const imgSrc=canvas.toDataURL();
-
-      const thumb=document.createElement('div');
-      thumb.classList.add('thumb');
-
-      const img=document.createElement('img');
-      img.src=imgSrc;
-      img.alt=file.name;
-
-      const label=document.createElement('p');
-      label.textContent=file.name;
-
-      thumb.appendChild(img);
-      thumb.appendChild(label);
-      thumb.onclick=()=>{video.src=videoURL;video.play();};
-
-      playlist.prepend(thumb);
-    });
-  }
-});
+video {width:1
 
 // Floating bubbles
 for(let i=0;i<15;i++){let bubble=document.createElement('div');bubble.classList.add('bubble');let size=Math.random()*60+20;bubble.style.width=`${size}px`;bubble.style.height=`${size}px`;bubble.style.left=`${Math.random()*100}%`;bubble.style.animationDuration=`${Math.random()*5+5}s`;document.body.appendChild(bubble);}

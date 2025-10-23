@@ -1,3 +1,12 @@
+html5-video-gallery/
+├── index.html
+├── videos/
+│   ├── sample1.mp4
+│   ├── sample2.mp4
+│   ├── sample3.mp4
+│   └── sample4.mp4
+└── README.md
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,12 +1,4 @@
-import os
-
-VIDEO_DIR = "videos"
-OUTPUT_FILE = "index.html"
-
-video_files = [f for f in os.listdir(VIDEO_DIR) if f.lower().endswith((".mp4", ".webm", ".ogg"))]
-
-with open(OUTPUT_FILE, "w") as f:
-    f.write("""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,27 +13,89 @@ p { text-align: center; margin: 0; font-weight: bold; }
 </style>
 </head>
 <body>
-<h1>HTML5 Video Gallery</h1>
-<div class="gallery">
-""")
 
-    for video in video_files:
-        f.write(f"""  <div class="video-card">
+<h1>HTML5 Video Gallery (GitHub Pages)</h1>
+
+<div class="gallery">
+  <!-- Update filenames to match your uploaded videos -->
+  <div class="video-card">
     <video controls>
-      <source src="{VIDEO_DIR}/{video}" type="video/mp4">
+      <source src="videos/video1.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-    <p>{video}</p>
-  </div>\n""")
+    <p>Video 1</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video2.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 2</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video3.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 3</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video4.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 4</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video5.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 5</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video6.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 6</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video7.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 7</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video8.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 8</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video9.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 9</p>
+  </div>
+  <div class="video-card">
+    <video controls>
+      <source src="videos/video10.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <p>Video 10</p>
+  </div>
+</div>
 
-    f.write("""</div>
 <h2>Play Your Own Videos</h2>
 <form>
   <label for="videos">Select videos (multiple):</label><br>
   <input type="file" id="videos" name="videos" accept="video/*" multiple><br>
   <p>After selecting files, your browser can play them locally.</p>
 </form>
-</body>
-</html>""")
 
-print(f"Generated {OUTPUT_FILE} with {len(video_files)} videos.")
+</body>
+</html>

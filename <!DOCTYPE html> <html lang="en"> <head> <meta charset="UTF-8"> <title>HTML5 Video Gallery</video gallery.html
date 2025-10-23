@@ -1,101 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>HTML5 Video Gallery</title>
-<style>
-body { font-family: Arial; padding: 20px; background: #f4f4f4; }
-h1 { margin-bottom: 20px; }
-.gallery { display: flex; flex-wrap: wrap; gap: 20px; }
-.video-card { background: white; border: 1px solid #ccc; padding: 10px; width: 320px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1); }
-video { width: 100%; height: auto; display: block; margin-bottom: 5px; }
-p { text-align: center; margin: 0; font-weight: bold; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartoon Network Player</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #000 40%, #111 100%);
+      font-family: "Comic Sans MS", sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: #000;
+      width: 100%;
+      padding: 10px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    header img {
+      height: 50px;
+      border-radius: 5px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .player-container {
+      background: #222;
+      padding: 20px;
+      border-radius: 20px;
+      width: 720px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 15px;
+      border: 5px solid #fff;
+      box-shadow: 0 0 15px #000;
+    }
+
+    .controls {
+      margin-top: 10px;
+    }
+
+    button {
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+      background: #ffcc00;
+      transform: scale(1.05);
+    }
+
+    .playlist {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .thumb {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 140px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      border: 3px solid transparent;
+    }
+
+    .thumb:hover {
+      transform: scale(1.08);
+      border-color: #ffcc00;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+    }
+
+    .thumb p {
+      margin: 5px;
+      color: #000;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
 
-<h1>HTML5 Video Gallery (GitHub Pages)</h1>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Cartoon_Network_2010_logo.svg" alt="CN Logo">
+    <h1>Cartoon Network Player</h1>
+  </header>
 
-<div class="gallery">
-  <!-- Update filenames to match your uploaded videos -->
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video1.mp4" type="video/mp4">
+  <div class="player-container">
+    <video id="videoPlayer" controls>
+      <source src="adventuretime.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-    <p>Video 1</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video2.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 2</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video3.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 3</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video4.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 4</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video5.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 5</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video6.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 6</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video7.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 7</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video8.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 8</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video9.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 9</p>
-  </div>
-  <div class="video-card">
-    <video controls>
-      <source src="videos/video10.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-    <p>Video 10</p>
-  </div>
-</div>
 
-<h2>Play Your Own Videos</h2>
-<form>
-  <label for="videos">Select videos (multiple):</label><br>
-  <input type="file" id="videos" name="videos" accept="video/*" multiple><br>
-  <p>After selecting files, your browser can play them locally.</p>
-</form>
+    <div class="controls">
+      <button onclick="playVideo()">Play</button>
+      <button onclick="pauseVideo()">Pause</button>
+      <button onclick="restartVideo()">Restart</button>
+    </div>
+
+    <div class="playlist">
+      <div class="thumb" onclick="changeVideo('adventuretime.mp4')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9d/Adventure_Time_-_Title_card.png" alt="Adventure Time">
+        <p>Adventure Time</p>
+      </div>
+      <div class="thumb" onclick="changeVideo('gumball.mp4')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/The_Amazing_World_of_Gumball_logo.png" alt="Gumball">
+        <p>Gumball</p>
+      </div>
+      <div class="thumb" onclick="changeVideo('teen_titans.mp4')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8c/Teen_Titans_Go%21_logo.png" alt="Teen Titans Go">
+        <p>Teen Titans Go</p>
+      </div>
+      <div class="thumb" onclick="changeVideo('ben10.mp4')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/f0/Ben_10_2016_logo.svg" alt="Ben 10">
+        <p>Ben 10</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Cartoon Network Fan Player — for personal/local use only
+  </footer>
+
+  <script>
+    const video = document.getElementById('videoPlayer');
+
+    function playVideo() {
+      video.play();
+    }
+
+    function pauseVideo() {
+      video.pause();
+    }
+
+    function restartVideo() {
+      video.currentTime = 0;
+      video.play();
+    }
+
+    function changeVideo(file) {
+      video.src = file;
+      video.play();
+    }
+  </script>
 
 </body>
 </html>

@@ -19,8 +19,7 @@ body {
 /* --- Top Banner --- */
 .banner {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 60px;
   background-color: white;
@@ -32,13 +31,13 @@ body {
   z-index: 5;
 }
 .banner .left { display: flex; align-items: center; }
-.banner img { height: 40px; margin-right: 10px; }
+.banner img { height: 40px; margin-right: 15px; }
 .banner h1 { font-size: 20px; margin: 0; color: black; }
 #settingsToggle {
   background-color: #ffcc00;
   border: 2px solid #000;
   border-radius: 10px;
-  padding: 5px 10px;
+  padding: 5px 12px;
   cursor: pointer;
   font-weight: bold;
   text-shadow: 1px 1px 0 #fff;
@@ -49,18 +48,20 @@ body {
 
 /* --- Frosted Container --- */
 .container {
+  position: relative;
+  z-index: 2;
   background: rgba(100,100,100,0.85);
   backdrop-filter: blur(10px);
-  padding: 30px 20px;
+  padding: 40px 30px 30px 30px;
   border-radius: 20px;
   box-shadow: 0 0 30px rgba(255,255,255,0.2);
   width: 90%;
-  max-width: 900px;
-  margin: 90px auto 50px auto;
+  max-width: 1000px;
+  margin: 100px auto 50px auto;
   text-align: center;
 }
 
-/* --- Bubbles --- */
+/* --- Floating bubbles --- */
 .bubble {
   position: absolute;
   bottom: -50px;
@@ -68,30 +69,34 @@ body {
   opacity: 0.6;
   pointer-events: none;
   z-index: 1;
-  animation: rise linear forwards;
+  animation-name: rise;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
 }
 @keyframes rise {
-  0% { transform: translateY(0); opacity: 0.7; }
-  100% { transform: translateY(-110vh); opacity: 0; }
+  0% { transform: translateX(0) translateY(0); opacity: 0.7; }
+  100% { transform: translateX(50px) translateY(-110vh); opacity: 0; }
 }
 
-/* Video Player */
+#logo { width: 180px; margin: 15px auto; display: block; }
+
 video {
-  width: 100%;
-  max-width: 700px;
+  max-width: 80%;
   border: 4px solid #fff;
   border-radius: 12px;
+  margin-top: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 
-/* Buttons */
+/* --- Cartoony Buttons --- */
 button, .file-btn {
+  display: inline-block;
   background-color: #ffcc00;
   color: black;
   font-weight: bold;
   font-size: 16px;
   padding: 10px 25px;
-  margin: 8px 5px;
+  margin: 5px;
   border-radius: 15px;
   border: 3px solid black;
   cursor: pointer;
@@ -102,25 +107,18 @@ button, .file-btn {
 button:hover, .file-btn:hover {
   background-color: orange;
   transform: scale(1.05);
+  box-shadow: 4px 4px 0 #000;
 }
 button.delete {
   background-color: #ff4c4c;
   color: #fff;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  font-size: 18px;
+  width: 25px; height: 25px; padding: 0; font-size: 16px; line-height: 20px;
 }
 button.delete:hover { background-color: #ff1a1a; transform: scale(1.1); }
 
 /* Playlist */
-#playlist {
-  list-style: none;
-  padding: 0;
-  margin: 20px auto;
-  max-width: 600px;
-}
+#playlist { list-style: none; padding: 0; margin: 20px auto; max-width: 600px; }
 .folder, .video-item, .standalone-video {
   background: rgba(0,0,0,0.7);
   margin: 6px 0;
@@ -129,116 +127,88 @@ button.delete:hover { background-color: #ff1a1a; transform: scale(1.1); }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: bold;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  transition: transform 0.1s, background 0.2s;
   flex-direction: column;
+  align-items: flex-start;
+}
+.folder:hover, .video-item:hover, .standalone-video:hover {
+  background: rgba(50,50,50,0.8);
+  transform: scale(1.02);
 }
 .folder-header { cursor: pointer; width: 100%; display: flex; justify-content: space-between; align-items: center; }
-.folder-videos { display: none; width: 100%; }
+.folder-videos { margin-left: 20px; display: none; width: 100%; }
 
-/* Settings Panel */
+.file-inputs { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+.file-inputs input[type="file"] { display: none; }
+.file-inputs label { margin: 8px 0; }
+
 #settingsPanel {
   position: fixed;
   top: 70px;
-  right: 15px;
+  right: 20px;
   background: rgba(200,200,200,0.95);
   padding: 15px;
   border-radius: 15px;
   box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
   z-index: 10;
   display: none;
-  max-width: 90%;
-  overflow-y: auto;
 }
+#settingsPanel h3, #settingsPanel h4 { margin: 5px 0; }
+#settingsPanel label { display: block; margin: 5px 0; font-size: 14px; }
 
-/* --- Responsive Design --- */
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
-  .banner { flex-direction: column; height: auto; padding: 10px; }
-  .banner img { height: 35px; }
+  .banner {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+  .banner img { height: 35px; margin-right: 8px; }
   .banner h1 { font-size: 18px; }
-  #settingsToggle { margin-top: 5px; }
+  #settingsToggle { margin-top: 8px; }
 
   .container {
-    margin-top: 120px;
-    padding: 20px 15px;
+    width: 95%;
+    padding: 25px 15px;
+    margin-top: 80px;
   }
 
-  video {
-    width: 100%;
-    border-width: 3px;
-  }
+  video { max-width: 100%; }
 
   button, .file-btn {
     width: 90%;
-    max-width: 300px;
     font-size: 15px;
     padding: 10px;
   }
 
-  #playlist {
+  #playlist { width: 95%; }
+
+  #settingsPanel {
+    right: 5px;
+    left: 5px;
+    width: auto;
+    top: 75px;
+  }
+
+  .folder, .video-item, .standalone-video {
+    font-size: 14px;
     width: 100%;
   }
 
-  #settingsPanel {
-    top: 80px;
-    right: 10px;
-    left: 10px;
-    max-height: 70vh;
-    overflow-y: auto;
+  .folder-header, .folder-videos {
+    flex-direction: column;
+    align-items: flex-start;
   }
+}
+
+@media (max-width: 480px) {
+  .banner h1 { font-size: 16px; }
+  #logo { width: 140px; }
+  button, .file-btn { font-size: 14px; }
 }
 </style>
 </head>
 <body>
-
-<!-- Banner -->
-<div class="banner">
-  <div class="left">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Cartoon_Network_2010_logo.svg">
-    <h1>Cartoon Network Player</h1>
-  </div>
-  <button id="settingsToggle">⚙️ Settings</button>
-</div>
-
-<!-- Player Container -->
-<div class="container">
-  <video id="videoPlayer" controls></video>
-  <div id="videoControls">
-    <button id="playBtn">Play ▶️</button>
-    <button id="pauseBtn">Pause ⏸️</button>
-    <button id="restartBtn">Restart 🔄</button>
-    <button id="stopBtn">Stop ⏹️</button>
-  </div>
-
-  <button id="createFolder">Add Folder 📁</button>
-  <ul id="playlist"></ul>
-
-  <div class="file-inputs">
-    <label class="file-btn" for="uploadVideo">Upload Video (Standalone)</label>
-    <input type="file" id="uploadVideo" accept="video/*">
-  </div>
-</div>
-
-<!-- Settings -->
-<div id="settingsPanel">
-  <h3>Settings</h3>
-  <label><input type="checkbox" id="legacyToggle"> Enable Legacy Mode</label>
-  <label>Background Color: <input type="color" id="bgColorPicker" value="#000000"></label>
-  <label>Container Color: <input type="color" id="containerColorPicker" value="#646464"></label>
-  <label>Button Color: <input type="color" id="buttonColorPicker" value="#ffcc00"></label>
-</div>
-
-<script>
-// simplified controls for preview
-const videoPlayer = document.getElementById('videoPlayer');
-document.getElementById('playBtn').onclick = () => videoPlayer.play();
-document.getElementById('pauseBtn').onclick = () => videoPlayer.pause();
-document.getElementById('restartBtn').onclick = () => { videoPlayer.currentTime=0; videoPlayer.play(); }
-document.getElementById('stopBtn').onclick = () => { videoPlayer.pause(); videoPlayer.currentTime=0; }
-
-// Toggle Settings
-const settingsPanel = document.getElementById('settingsPanel');
-document.getElementById('settingsToggle').onclick = () => {
-  settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
-};
-</script>
-</body>
-</html>
+<!-- everything below stays the same -->

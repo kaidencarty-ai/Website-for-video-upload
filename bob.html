@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cartoon Network Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* --- Top Banner --- */
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 5;
+}
+.banner .left { display: flex; align-items: center; }
+.banner img { height: 40px; margin-right: 10px; }
+.banner h1 { font-size: 20px; margin: 0; color: black; }
+#settingsToggle {
+  background-color: #ffcc00;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #fff;
+  box-shadow: 2px 2px 0 #000;
+  transition: all 0.2s ease;
+}
+#settingsToggle:hover { background-color: orange; }
+
+/* --- Frosted Container --- */
+.container {
+  background: rgba(100,100,100,0.85);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  width: 90%;
+  max-width: 900px;
+  margin: 90px auto 50px auto;
+  text-align: center;
+}
+
+/* --- Bubbles --- */
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  border-radius: 50%;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+  animation: rise linear forwards;
+}
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 0.7; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* Video Player */
+video {
+  width: 100%;
+  max-width: 700px;
+  border: 4px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+/* Buttons */
+button, .file-btn {
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 25px;
+  margin: 8px 5px;
+  border-radius: 15px;
+  border: 3px solid black;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 white;
+  box-shadow: 3px 3px 0 #000;
+  transition: all 0.2s ease;
+}
+button:hover, .file-btn:hover {
+  background-color: orange;
+  transform: scale(1.05);
+}
+button.delete {
+  background-color: #ff4c4c;
+  color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 18px;
+}
+button.delete:hover { background-color: #ff1a1a; transform: scale(1.1); }
+
+/* Playlist */
+#playlist {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 600px;
+}
+.folder, .video-item, .standalone-video {
+  background: rgba(0,0,0,0.7);
+  margin: 6px 0;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.folder-header { cursor: pointer; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+.folder-videos { display: none; width: 100%; }
+
+/* Settings Panel */
+#settingsPanel {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  background: rgba(200,200,200,0.95);
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+  z-index: 10;
+  display: none;
+  max-width: 90%;
+  overflow-y: auto;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .banner { flex-direction: column; height: auto; padding: 10px; }
+  .banner img { height: 35px; }
+  .banner h1 { font-size: 18px; }
+  #settingsToggle { margin-top: 5px; }
+
+  .container {
+    margin-top: 120px;
+    padding: 20px 15px;
+  }
+
+  video {
+    width: 100%;
+    border-width: 3px;
+  }
+
+  button, .file-btn {
+    width: 90%;
+    max-width: 300px;
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  #playlist {
+    width: 100%;
+  }
+
+  #settingsPanel {
+    top: 80px;
+    right: 10px;
+    left: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<div class="banner">
+  <div class="left">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Cartoon_Network_2010_logo.svg">
+    <h1>Cartoon Network Player</h1>
+  </div>
+  <button id="settingsToggle">⚙️ Settings</button>
+</div>
+
+<!-- Player Container -->
+<div class="container">
+  <video id="videoPlayer" controls></video>
+  <div id="videoControls">
+    <button id="playBtn">Play ▶️</button>
+    <button id="pauseBtn">Pause ⏸️</button>
+    <button id="restartBtn">Restart 🔄</button>
+    <button id="stopBtn">Stop ⏹️</button>
+  </div>
+
+  <button id="createFolder">Add Folder 📁</button>
+  <ul id="playlist"></ul>
+
+  <div class="file-inputs">
+    <label class="file-btn" for="uploadVideo">Upload Video (Standalone)</label>
+    <input type="file" id="uploadVideo" accept="video/*">
+  </div>
+</div>
+
+<!-- Settings -->
+<div id="settingsPanel">
+  <h3>Settings</h3>
+  <label><input type="checkbox" id="legacyToggle"> Enable Legacy Mode</label>
+  <label>Background Color: <input type="color" id="bgColorPicker" value="#000000"></label>
+  <label>Container Color: <input type="color" id="containerColorPicker" value="#646464"></label>
+  <label>Button Color: <input type="color" id="buttonColorPicker" value="#ffcc00"></label>
+</div>
+
+<script>
+// simplified controls for preview
+const videoPlayer = document.getElementById('videoPlayer');
+document.getElementById('playBtn').onclick = () => videoPlayer.play();
+document.getElementById('pauseBtn').onclick = () => videoPlayer.pause();
+document.getElementById('restartBtn').onclick = () => { videoPlayer.currentTime=0; videoPlayer.play(); }
+document.getElementById('stopBtn').onclick = () => { videoPlayer.pause(); videoPlayer.currentTime=0; }
+
+// Toggle Settings
+const settingsPanel = document.getElementById('settingsPanel');
+document.getElementById('settingsToggle').onclick = () => {
+  settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+};
+</script>
+</body>
+</html>
